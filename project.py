@@ -106,6 +106,14 @@ def perform_operation(store, choice):
     else:
         print("Invalid choice. Please enter a number between 1 and 7.")
 
+def input_integer(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            return value
+        except ValueError:
+            print("Please enter an integer number.")
+2
 
 if __name__ == "__main__":
     store = Store()
@@ -113,5 +121,17 @@ if __name__ == "__main__":
     while True:
         display_menu()
         user_choice = input("Enter your choice (1-7): ")
-        perform_operation(store, user_choice)
 
+        if user_choice in ['1', '2']:
+            name = input("Enter product name: ")
+            quantity = input_integer("Enter quantity in stock: ")
+            cost = input_integer("Enter cost per unit: ")
+            price = input_integer("Enter selling price per unit: ")
+
+            if user_choice == '1':
+                result = store.add_product(name, quantity, cost, price)
+            else:
+                quantity_add = input_integer("Enter quantity to add: ")
+                result = store.update_product(name, quantity_add, cost, price)
+            
+            print(result)
